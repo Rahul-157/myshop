@@ -1,0 +1,53 @@
+<script>
+    function just_confirm(ele) {
+        if (confirm("You are going to delete a User!. Please Confirm")) {
+            window.location.href = ele.getAttribute('custom')
+        }
+    }
+</script>
+<div class="panel panel-info infuse">
+    <div class="panel-heading">
+        <div class="panel-title">All Users</div>
+    </div>
+    <div id="container" style="height:550px;overflow-y: scroll;overflow-x:hidden;padding: 0px; margin:0px">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sr No</th>
+                <th scope="col" >First Name</th>
+                <th scope="col" >Last Name</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(typeof users != 'undefined'){ users.forEach(function(user, index) { if(user.role!="ROLE_ADMIN"){ %>
+            <tr class="tableRow">
+                <th scope="row"><%=index+1%></th>
+                <td><%=user.firstName%></td>
+                <td><%=user.lastName%></td>
+                <td> <a href="/classified/editUser/<%=user.id%>">
+                        <span class=" btn-success glyphicon glyphicon-edit">Edit</span>
+                    </a></td>
+                <td><span custom="/classified/deleteUser/<%=user.id%>" onclick="just_confirm(this)" class="delete_class btn-danger glyphicon glyphicon-remove">Delete</span></td>
+                </td>
+            </tr>
+            <%}});  } if(users.length==1) { %>
+           <tr><td colspan="5" align="center">No Users to manage</td></tr> 
+            <% } %>
+        </tbody>
+        </table>
+        </div>
+</div>
+
+<script>
+   
+    if(document.body.clientWidth>768){
+       document.querySelector('.infuse').style.height = '565px';
+       document.querySelector('.infuse').style.width = '1050px';
+     
+     }  
+   
+     
+   </script>

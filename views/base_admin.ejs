@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-inverse" style="width: 100%;position: fixed;top:0;z-index: 1001;background-color: #173437;">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href='/classified/home'><img src='/images/logo.png' style="position: relative;top: 3px; margin-right: 10px;" height="40" width="40"></a>
+  
+        <a class="navbar-brand" href="/">MyShop</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li ><a href="/classified/home">Home</a></li>
+          <li ><a href="/classified/products">Products</a></li>
+          <li ><a href="/classified/users">Users</a></li>
+          <li><a href="#">Orders</a></li>
+          <li ><a href="#">Contact Info</a></li>
+        </ul>
+        <form class="navbar-form navbar-left" method="POST" action="/classified/search_results">
+          <input type="hidden" name="_csrf" value="<%= _csrf %>" />          
+         
+          <div class="input-group">
+            <input type="text"  name="search_query" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form> 
+        <ul class="nav navbar-nav navbar-right">
+          <% if (typeof req.user!='undefined' ){%>
+            <li><a href="/myaccount"><span class="glyphicon glyphicon-home"></span> My Account</a></li>
+            <li><a href="/classified/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <% if (typeof status!='undefined'){ %>
+    <% if(status=="success") {%>
+  <div class="alert alert-success alert-dismissible fade in" style="margin-bottom: 5px;position:fixed;z-index: 2000;width:100%">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%- message %></strong>
+    <% } else if(status=="error"){%>
+      <div class="alert alert-danger alert-dismissible fade in" style="margin-bottom: 5px;position:fixed;z-index: 2000;width:100%">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%- message %></strong>
+        <% } %>
+  </div>
+</div>
+<% } %>
+<script>
+  let flash_msg = document.getElementsByClassName('alert');
+  if(flash_msg.length!=0){
+    setTimeout(function(){ flash_msg[0].remove() }, 3000);
+  }
+ 
+</script>
+
+
+
+<div id="wrapper">
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-li">
+        <a href="/classified/products">All Products</a>
+      </li >
+      <li class="sidebar-nav-li">
+        <a href="/classified/users">All Users</a>
+      </li>
+      <li class="sidebar-nav-li">
+        <a href="/classified/orders">All Orders</a>
+      </li>
+      <li class="sidebar-nav-li">
+        <a href="/classified/categories">All Categories</a>
+      </li>
+      <li class="sidebar-nav-li">
+        <a href="/classified/addProduct">Add New Product</a>
+      </li>
+      <li class="sidebar-nav-li">
+        <a href="/classified/categories">Add New Category</a>
+      </li>
+      <li class="sidebar-nav-li">
+        <a href="/classified/contact">Contact Info</a>
+      </li >
+    </ul>
+  </div>
+       
+  <div id="page-content-wrapper">
+    <%- body %>
+  </div>
+
+</div>
+<script>
+  $(document).ready(
+    function(){
+      $('a[href="' + window.location.pathname + '"]').parent().addClass('active');
+    }
+  )
+  $('.navlist').click(function() {
+    if($(window).width()<768 &&!($(this).hasClass('dropdown')))
+      $('.navbar-toggle').click();
+  });
+  $('.sidebar-nav-li').click(function() {
+    if($(window).width()>768 )
+      $('.sidebar-nav-li').removeClass('active-side');
+      $(this).addClass('active-side')
+  });
+
+</script>
+  </body>
+</html>
+
+

@@ -1,0 +1,67 @@
+<script>
+    function just_confirm(ele) {
+        if (confirm("You surely want to delete this category!")) {
+            console.log(ele.getAttribute('custom'))
+            window.location.href = ele.getAttribute('custom')
+        }
+    }
+</script>
+<div class="panel panel-info infuse">
+    <div class="panel-heading">
+        <div class="panel-title">All Categories</div>
+    </div>
+    <div id="container" style="height:550px;overflow-y: scroll;overflow-x:hidden;padding: 0px; margin:0px">
+       <form id="new_cat" method="POST" action="/classified/addCategory" style="padding: 5px;">
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />          
+        <div class="form-group">
+            <label class="col-md-2 control-label">New Category</label>
+            <input type="submit"   class="btn btn-success" value="Insert" />
+            <div class="col-md-8">
+                <input class="form-control" name="new_cat" value="" placeholder="Enter name of Category">
+            </div>
+        </div>
+        </form>
+        <table class="table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">Sr No</th>
+                    <th scope="col" width='600px'>Name</th>
+
+                    <th scope="col">Controls</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(typeof categories != 'undefined'){ categories.forEach(function(category, index) { %>
+
+                <tr class="tableRow">
+                    <th scope="row"><%=index+1%></th>
+                    <td>
+                        <form id="<%=category.name%>" action="/classified/editCategory" method="POST">
+                            <input name="category" value="<%=category.name%>" hidden >
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />          
+
+                            <input type="text" name="name" id="ip_<%=category.name%>" value="<%=category.name%>"
+                                disabled>
+                        </form>
+                    </td>
+                    <td>
+                        <span cat_name="<%=category.name%>" class=" btn-info" onclick="make_editable(this)">Edit</span>
+                        <input type="submit" class=" btn-success" value="Save" form="<%=category.name%>" style="border-radius: 5px;">
+                        <span custom="/classified/deleteCategory/<%=category.id%>" onclick="just_confirm(this)"
+                            class="delete_class btn-danger">Delete</span></td>
+                    </td>
+                </tr>
+
+                <%});  } else { %>
+                No categories to manage
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function make_editable(ele){
+      var id = "#ip_" +ele.getAttribute('cat_name')
+      $(id).removeAttr('disabled').focus().select()
+    }
+</script>

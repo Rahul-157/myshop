@@ -1,0 +1,129 @@
+<div class="panel panel-info infuse">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Add New Product
+        </div>
+    </div>
+
+    <div class="container" style="height:550px;overflow-y: scroll;overflow-x:hidden;padding: 5px; margin:0px">
+
+        <form id="addproduct" class="form-horizontal" enctype="multipart/form-data" action="/classified/addProduct"
+            method="POST">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+            <div class="form-group">
+                <label for="name" class="col-md-3 control-label">Name</label>
+                <div class="col-md-9">
+                    <input required type="text" class="form-control" name="name" placeholder="IMC Aloe ...">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="price" class="col-md-3 control-label">Price</label>
+                <div class="col-md-9">
+                    <input required type="number" class="form-control" name="price" placeholder="345.23" step=".01">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">Description</label>
+                <div class="col-md-9">
+                    <textarea class="form-control" name="description"
+                        placeholder="Few lines about this product."></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description_hindi" class="col-md-3 control-label">Description (Hindi)</label>
+                <div class="col-md-9">
+                    <textarea class="form-control" name="description_hindi"
+                        placeholder="Few lines about this product."></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="category" class="col-md-3 control-label">Category</label>
+                <div class="col-md-9">
+                    <input required type="text" name="category" class="form-control" list="cats" />
+                    <datalist id="cats">
+                        <% if(typeof categories != 'undefined'){ categories.forEach(function(category, index) { %>
+                        <option value="<%= category.name%>"><%=category.name%></option>
+                        <% }); }%>
+                    </datalist>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">Quantity</label>
+                <div class="col-md-9">
+                    <input type="number" class="form-control" name="quantity" placeholder="1">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">IMC CODE</label>
+                <div class="col-md-9">
+                    <input required type="text" class="form-control" name="imc_code" placeholder="111111">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">Ingredients (Comma seperated)</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="ingredients" placeholder="Aloe Vera, Tulsi">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">Uses</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="uses" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">Uses (Hindi)</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="uses_hindi" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">Benefits</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="benefits" placeholder="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="col-md-3 control-label">Benefits (Hindi)</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="benefits_hindi" placeholder="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="picture" class="col-md-3 control-label">Picture</label>
+                <div class="col-md-9">
+                    <input type="file" id='product_pic' name="picture">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <!-- Button -->
+                <div class="col-md-offset-3 col-md-9">
+                    <button id="btn-signup" type="submit" class="btn btn-info btn-block"><i class="icon-hand-right"></i>
+                        &nbsp Add Now</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+
+   if(document.body.clientWidth>768){
+      document.querySelector('.infuse').style.width = '1050px';
+      document.querySelector('#addproduct').style.width = '1000px';
+   }
+   else{
+      document.querySelector('.infuse').style.width = '100%';
+   }
+
+    </script>
+</div>

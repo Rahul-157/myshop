@@ -1,0 +1,45 @@
+<script>
+    function just_confirm(ele) {
+        if (confirm("You surely want to delete this product!")) {
+            window.location.href = ele.getAttribute('custom')
+        }
+    }
+</script>
+<div class="panel panel-info infuse">
+    <div class="panel-heading">
+        <div class="panel-title">All Products</div>
+    </div>
+    <div id="container" style="height:550px;overflow-y: scroll;overflow-x:hidden;padding: 0px; margin:0px">
+    <table class="table" style="width: 100%;">
+        <thead>
+            <tr>
+                <th scope="col">Sr No</th>
+                <th scope="col" width='600px'>Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Controls</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(typeof products != 'undefined'){ products.forEach(function(product, index) { %>
+            
+            <tr class="tableRow" >
+                <th scope="row"><%=index+1%></th>
+                <td><%=product.name%></td>
+                <td><%=product.category.name%></td>
+                <td> <a href="/classified/productDetails/<%=product.id%>">
+                    <span class=" btn-info glyphicon glyphicon-new">Details</span>
+                </a>
+               <a href="/classified/editProduct/<%=product.id%>">
+                        <span class=" btn-success">Edit</span>
+                    </a>
+                <span custom="/classified/deleteProduct/<%=product.id%>" onclick="just_confirm(this)" class="delete_class btn-danger">Delete</span></td>
+                </td>
+            </tr>
+           
+            <%});  } else { %>
+            No products to manage
+            <% } %>
+        </tbody>
+        </table>
+    </div>
+</div>

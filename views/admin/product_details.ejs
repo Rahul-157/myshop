@@ -1,0 +1,49 @@
+<div class="panel panel-info infuse" >
+  <div class="panel-heading" >
+      <div class="panel-title">
+         <% if(typeof product!='undefined') { %>
+          <%=product.name%>
+          <% }else { %>
+          Product
+          <% } %>
+      </div>
+  </div>
+    <div class="container-fluid" style="height:550px;overflow-x:hidden;padding: 5px; margin:0px">
+      <% if(typeof product != 'undefined'){ %>
+        <div class="row">
+          <div id="image_div" class="col-md-4" >
+              <img src="<%-product.productImage%>" class="img-responsive" style="margin-top:30px;margin-bottom: 30px;">
+              <span style="text-decoration:none;color:black;font-weight: bolder;"><div style="border-radius:7px;margin-top: 10px;margin-left:auto;margin-right:auto;background-color:rgb(219, 223, 32);text-align: center;">&#8377 <%=product.price%></div> </span>
+              <span style="text-decoration:none;color:white;font-weight: bold;"><div style="border-radius:7px;margin-top: 10px;margin-left:auto;margin-right:auto;background-color:#173437;text-align: center;">IMC Code : <%=product.imc_code%></div></span>
+          </div>
+          <div id="details_div" class="col-md-6" style="margin: auto;padding: 15px;overflow-y:scroll;overflow-x:hidden">
+             <%if(product.description && product.description.length!=0) {%> <%= product.description%><br><br> <% } %>
+             <%if(product.description_hindi && product.description_hindi.length!=0) {%>  <%= product.description_hindi%><br><br><% } %>
+             <%if(product.uses && product.uses.length!=0) {%>  <%= product.uses%><br><br><% } %>
+             <%if(product.uses_hindi && product.uses_hindi.length!=0) {%>  <%= product.uses_hindi%><br><br><% } %>
+             <%if(product.benefits && product.benefits.length!=0) {%> <%= product.benefits%><br><br><% } %>
+             <%if(product.benefits_hindi && product.benefits_hindi.length!=0) {%> <%= product.benefits_hindi%><br><br><% } %>
+             <%if(product.ingredients && product.ingredients.length!=0) {%> <%= product.ingredients%><br><br><% } %>
+             
+            </div>
+        </div>
+        
+      <% } %>
+    </div>
+ 
+  <script>
+   
+   if(document.body.clientWidth>768){
+      document.querySelector('.infuse').style.height = '565px';
+      document.querySelector('.infuse').style.width = '1050px';
+      document.querySelector('#details_div').style.height="510px";
+      document.querySelector('#details_div').style.width="600px";
+     
+      document.querySelector('#image_div').style.position="absolute";
+      document.querySelector('#details_div').style.position="relative";
+      document.querySelector('#details_div').style.left="430px";
+    }  
+  
+    
+  </script>
+</div>

@@ -1,0 +1,102 @@
+<div class="panel panel-info infuse" style=" border-color: #173437">
+    <div class="panel-heading" >
+        <div class="panel-title">
+           <% if(typeof cat_name!='undefined') { %>
+            <%=cat_name%>
+            <% }else { %>
+            All Products
+            <% } %>
+        </div>
+    </div>
+    <div id="container" style="height:530px;overflow-y: scroll;overflow-x:unset;">
+        <% if(typeof products != 'undefined'){ %>
+        <%  if(products.length<=4) {%>
+         <script> document.querySelector('.infuse').style.minWidth='1060px';</script>
+         <%} 
+          products.forEach(function(product, index) { %>
+        <a href="/productdetails/<%=product.id%>">
+            <div class="common">
+                <img src="<%-product.productImage%>" class="img-responsive">
+                <div class="producttitle"><%=product.name%></div>
+                <div class="productdetails">
+                    <div class="spanleft"><span  style="padding-left: 2px;padding-right: 2px;">&#8377 <%=product.price%></span></div>
+                    <a href='/addToCart/<%=product.id%>'><span class="spanright btn-danger glyphicon">Buy</span></a>
+                </div>
+            </div>
+        </a>
+        <%});  } else { %>
+        No products to manage
+        <% } %>
+    </div>
+</div>
+
+<nav style="position: fixed;top:615px;">
+    <ul class="pagination justify-content-end">
+      <% if(typeof current_pg!='undefined') {
+         
+          if(current_pg==0) {%>
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Prev</a>
+              </li>
+     <% } else { 
+        let pre_url = '/page'; 
+        let tmp = parseInt(current_pg)-1
+        if(typeof cat_name!='undefined') { 
+            cat_name = cat_name.split(' ').join('-').toLowerCase(); 
+            pre_url='/c/'+cat_name+'/page/'+tmp;
+         } 
+         else
+         pre_url=pre_url+'/'+tmp;
+         %>
+        <li class="page-item">
+            <a class="page-link" href="<%=pre_url%>" tabindex="-1">Prev</a>
+          </li>
+        <% } }%>
+      <% if(typeof pages != 'undefined'){ 
+          if(pages>7){
+            for(let i =parseInt(current_pg);i<parseInt(current_pg)+7&& i<pages;i++) {
+                let page_url = '/page'; 
+                if(typeof cat_name!='undefined') { 
+                    cat_name = cat_name.split(' ').join('-').toLowerCase()
+                    page_url='/c/'+cat_name+'/page/'+i
+                 }
+                 else
+                page_url=page_url+'/'+i;
+                %>
+              <li class="page-item"><a class="page-link" href="<%=page_url%>"><%=i+1%></a></li>
+             <% } } else{
+        for(let i =0;i<pages;i++) {
+        let page_url = '/page'; 
+        if(typeof cat_name!='undefined') { 
+            cat_name = cat_name.split(' ').join('-').toLowerCase()
+            page_url='/c/'+cat_name+'/page/'+i;
+         }
+         else
+         page_url=page_url+'/'+i;
+        %>
+      <li class="page-item"><a class="page-link" href="<%=page_url%>"><%=i+1%></a></li>
+     <% } }  }%>
+
+
+     <% if(typeof current_pg!='undefined') {
+         current_pg
+        if(current_pg==pages-1) {%>
+          <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Next</a>
+            </li>
+   <% } else { 
+      let post_url = '/page'; 
+      let tmpp  = parseInt(current_pg)+1;
+      if(typeof cat_name!='undefined') { 
+          cat_name = cat_name.split(' ').join('-').toLowerCase();
+          post_url='/c/'+cat_name+'/page/'+tmpp;
+       } 
+       else
+       post_url=post_url+'/'+tmpp;
+       %>
+      <li class="page-item">
+          <a class="page-link" href="<%=post_url%>" tabindex="-1">Next</a>
+        </li>
+      <% } }%>
+    </ul>
+  </nav>

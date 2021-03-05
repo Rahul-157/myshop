@@ -1,0 +1,84 @@
+<div class="panel panel-info infuse">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <% if(typeof user!='undefined') { %>
+            <%=user.firstName%>
+            <% }else { %>
+            user
+            <% } %>
+        </div>
+    </div>
+    <div class="container-fluid" style="height:550px;overflow-y: scroll;overflow-x:hidden;padding: 0px; margin:0px">
+        <% if(typeof user != 'undefined'){ %>
+        <div class="row">
+            <div class="col-md-4" >
+                <img src="<%=user.profilePicture%>" class="img-responsive"
+                    style="margin-top:30px;margin-bottom: 30px;margin-left: 10px;">
+                   
+            </div>
+            <div class="col-md-8">
+                <form id="edit_me" action="/classified/editUser/<%=user.id%>" method="POST"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />          
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">First Name</label>
+                        <div class="col-md-9">
+                            <input class="form-control" name="firstName" value="<%=user.firstName %>">
+                        </div>
+                    </div>
+                   
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Last Name</label>
+                        <div class="col-md-9">
+                             <input  class="form-control" type="text" name="lastName"  value="<%=user.lastName%>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Mobile</label>
+                        <div class="col-md-9">
+                            <input type="tel"  class="form-control" name="mobileNumber"   value="<%=user.mobileNumber%>">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Email</label>
+                        <div class="col-md-9">
+                            <input type="tel"  class="form-control" name="email"   value="<%=user.email%>">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">New Picture</label>
+                        <div class="col-md-9">
+                            <input type="file" name="picture"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+
+                        <div class="col-md-9">
+                    <input type="submit"   class="btn btn-success btn-block" value="Save" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <% } %>
+    </div>
+</div>
+<script>
+
+    if(document.body.clientWidth>768){
+       document.querySelector('.infuse').style.width = '1050px';
+    }
+    else{
+       document.querySelector('.infuse').style.width = '100%';
+    }
+ 
+     </script>

@@ -1,0 +1,115 @@
+<div class="panel panel-info infuse">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <% if(typeof product!='undefined') { %>
+            <%=product.name%>
+            <% }else { %>
+            Product
+            <% } %>
+        </div>
+    </div>
+    <div class="container-fluid" style="height:550px;overflow-y: scroll;overflow-x:hidden;padding: 0px; margin:0px">
+        <% if(typeof product != 'undefined'){ %>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="<%-product.productImage%>" class="img-responsive"
+                    style="margin-top:30px;margin-bottom: 30px;">
+                   
+            </div>
+            <div class="col-md-8">
+                <form id="edit_me" action="/classified/editProduct/<%=product.id%>" method="POST"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />          
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">MRP</label>
+                        <div class="col-md-9">
+                            <input class="form-control" name="price" value="<%=product.price %>">
+                        </div>
+                    </div>
+                   
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Quantity</label>
+                        <div class="col-md-9">
+                             <input type="number" name="quantity"  value="<%=product.quantity%>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Tags</label>
+                        <div class="col-md-9">
+                            <input type="text" name="tags"   value="<%=product.tags%>">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">IMC Code</label>
+                        <div class="col-md-9">
+                            <input class="form-control" name="imc_code" value="<%= product.imc_code%>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Description</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" name="description" form="edit_me"> <%= product.description%></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Description Hindi</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" name="description_hindi" form="edit_me"> <%= product.description_hindi%></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Uses</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" name="uses" form="edit_me"> <%= product.uses%></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Uses Hindi</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" name="uses_hindi" form="edit_me"> <%= product.uses_hindi%></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Benefits</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" name="benefits" form="edit_me"> <%= product.benefits%></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Benefits Hindi</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" name="benefits_hindi" form="edit_me"> <%= product.benefits_hindi%></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Ingredients</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" name="ingredients" form="edit_me"> <%= product.ingredients  %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Image</label>
+                        <div class="col-md-9">
+                            <input type="file" name="picture"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-9">
+                    <input type="submit"   class="btn btn-success btn-block" value="Save" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <% } %>
+    </div>
+
+
+</div>
