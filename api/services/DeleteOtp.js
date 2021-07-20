@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-
+const logger = sails.log
 module.exports = {
 	AutoDestroyOtp: function (user) {
 		let con = mysql.createConnection(sails.config.connections.mySqlConnection);
@@ -10,9 +10,9 @@ module.exports = {
 
 		con.query(sqlQuery, function (err, rows, fields) {
 			if (err) {
-				console.log("Some error has occurred whlie creating the event.");
+				logger.error("Some error has occurred whlie creating the event.");
 			} else {
-				console.log("OTP Timer set!");
+				logger.info("OTP Timer set!");
 			}
 		});
 	}

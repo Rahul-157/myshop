@@ -1,11 +1,12 @@
 /**
  * Passport configuration file where you should configure strategies
  */
+require("dotenv").config()
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const EXPIRES_IN_MINUTES = 60 * 48;
-const SECRET = "cJfMhPmSpUrXuZw3z6B8EbGdJgNjQmTqVsYv2x4A7C9EcHeKgPkRnUrWtYw3y5A8D"
+const SECRET = process.env.tokret
 const ALGORITHM = "HS256";
 var ISSUER = "rahul";
 var AUDIENCE = "kumar";
@@ -46,17 +47,10 @@ var LOCAL_STRATEGY_CONFIG = {
  * Configuration object for JWT strategy
  */
 
-var JWT_STRATEGY_CONFIG = {
-    expiresInMinutes: EXPIRES_IN_MINUTES,
-    algorithms: ALGORITHM,
-    secretOrKey: SECRET,
-    issuer:ISSUER,
-    audience:AUDIENCE,
-    passReqToCallback: true
-};
+
 
 var JWT_SETTINGS = {
-    expiresIn: '2d',
+    expiresIn: '7d',
     algorithm: ALGORITHM,
     issuer:ISSUER,
     audience:AUDIENCE
@@ -72,7 +66,6 @@ function _onLocalStrategyAuth(req, email, password, next) {
         .exec(function (error, user) {
             if (error) return next(error, false, {});
             if (!user) return next(null, false, 'Incorrect Email!',);
-            // TODO: replace with new cipher service type
             if (!CipherService.comparePassword(password, user))
                 return next(null, false, 'Incorrect Password!');
             return next(null, user, {});
@@ -84,7 +77,6 @@ function _onLocalStrategyAuth(req, email, password, next) {
  */
 function _onJwtStrategyAuth(payload, next) {
     var user = payload.user;
-    // console.log("payload  is: "+JSON.stringify(payload))
     return next(null, user, {});
 }
 passport.use(

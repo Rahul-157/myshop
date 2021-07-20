@@ -23,8 +23,8 @@ module.exports = {
 			defaultsTo:"NULL"
 		},
 		isEmailVerified: {
-			type: 'boolean',
-			defaultsTo: false,
+			type: 'string',
+			defaultsTo:"0"
 		},
 		mobileNumber: {
 			type: 'string'

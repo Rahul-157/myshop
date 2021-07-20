@@ -22,7 +22,6 @@ module.exports = {
 			if (error) {
 				return false;
 			} else {
-				console.log("Body    :   ", body);
 				return true;
 			}
 		});

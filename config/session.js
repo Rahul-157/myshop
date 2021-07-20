@@ -37,7 +37,7 @@ module.exports.session = {
     // For example, use 24 * 60 * 60 * 1000 to make sessions expire in 24 hours.
     // Default is null, making it a browser cookie, so the session will
     // last only for as long as the browser is open.
-    maxAge: 48 * 60 * 60 * 1000,
+    maxAge: 24*7 * 60 * 60 * 1000,
     // Path that the cookie is valid for.
     path: '/',
     // Should the session cookie be HTTP-only? (See https://www.owasp.org/index.php/HttpOnly)

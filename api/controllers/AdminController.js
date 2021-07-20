@@ -63,12 +63,14 @@ module.exports = {
 	deleteUser: async function (req, res) {
 		User.destroy({
 			id: req.param('id')
-		}, function (err) {
+		},  async function (err) {
 			if (!err) {
+				let users = await User.find()
 				res.view('admin/users', {
 					layout: 'base_admin',
 					status: 'success',
-					message: "User deleted!"
+					message: "User deleted!",
+					users : users
 				});
 			} else {
 				res.serverError('Unable to delete User')
@@ -236,7 +238,6 @@ module.exports = {
 		}
 	},
 	deleteProduct: async function (req, res) {
-		console.log("deleting product")
 		Product.destroy({
 			id: req.param('id')
 		}, async function (err) {

@@ -54,7 +54,6 @@ module.exports = {
 				);
 				if (validatePassword) {
 					if (newPasswordMatch) {
-						console.log('newPassword Match');
 						return res.json({
 							status: 'ERROR',
 							message: 'Your new password should not be same as old password',
@@ -106,7 +105,6 @@ module.exports = {
 					newPassword,
 					user
 				);
-				console.log('Password Match  :  ', passwordMatch);
 
 				if (passwordMatch) {
 					let validatePassword = await ValidationService.validatePassword(
@@ -207,36 +205,4 @@ module.exports = {
 		});
 	},
 
-	verifyEmail: async function (req, res) {
-		try {
-
-			let user = await User.findOne({
-				id: req.params.id
-			});
-			if (user) {
-				await User.update({
-					id: user.id
-				}, {
-					isEmailVerified: true
-				});
-				return res.json({
-					status: 'SUCCESS',
-					message: 'Email Verified',
-					data: {},
-				});
-			} else {
-				return res.json({
-					status: 'ERROR',
-					message: 'User Not Found',
-					data: {},
-				});
-			}
-		} catch (err) {
-			return res.json({
-				status: 'ERROR',
-				message: 'Some Error Occured',
-				data: {},
-			});
-		}
-	}
 };

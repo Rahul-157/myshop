@@ -1,6 +1,7 @@
+const logger = sails.log
 module.exports = function (req, res, next) {
-	console.log(req.user)
-	if (req.user && req.user.isEmailVerified) {
+	logger.log(req.user)
+	if (req.user && req.user.isEmailVerified=="1") {
 		return next();
 	} else {
 		return res.json({

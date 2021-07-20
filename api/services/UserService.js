@@ -1,4 +1,5 @@
 require('dotenv').config();
+const logger = sails.log
 module.exports = {
 
   randomString: function (len) {
@@ -26,13 +27,13 @@ module.exports = {
       })
       return done("Invalid Image Type",null)
     }
-    console.log("Incomming file Upload request");
+    logger.log("Incomming file Upload request");
     await picture.upload({
       dirname: '../../assets/'+path,
       maxBytes: 1000000000
     }, function whenDone(err, uploadedFiles) {
       if (uploadedFiles) {
-        console.log(uploadedFiles)
+        logger.log(uploadedFiles)
         return done(null, uploadedFiles);
       } else {
         if(typeof picture._files[0]=='undefined')

@@ -1,4 +1,5 @@
 const passport = require('passport');
+const HomeController = require('./HomeController');
 const logger = sails.log;
 require('dotenv').config()
 module.exports = {
@@ -100,6 +101,7 @@ module.exports = {
 				lastName: req.body.lastName ? req.body.lastName : '',
 				email: req.body.email,
 				password:req.body.password,
+				isEmailVerified:"0",
 				otp: uniqueotp,
 				mobileNumber: req.body.mobileNumber,
 				role: "ROLE_USER"
@@ -231,7 +233,7 @@ module.exports = {
 			let user = await User.update({
 				id: matchotp.id
 			},{
-				isEmailVerified: true
+				isEmailVerified: "1"
 			});
 			user =  await User.findOne({
 				email: req.body.email
@@ -250,14 +252,10 @@ module.exports = {
 			let user = await User.update({
 				id:req.params.id
 			},{
-				isEmailVerified:true
+				isEmailVerified:'1'
 			});
 			if(user){
-				res.view('partials/home',{
-					layout:'template',
-					status:"success",
-					message:"Email verified"
-				});
+				HomeController.home(req,res)
 			}
 			else{
 				res.serverError()
@@ -311,10 +309,7 @@ module.exports = {
 
 	logout: async function (req, res) {
 		// logger.info(req.cookie)
-		if (!req.user) {
-			return res.serverError();
-		}
-		req.user=undefined;
+		req.user=null;
 		res.cookie('jwt', null, {
 			secure: req.connection.encrypted ? true : false,
 			httpOnly: true

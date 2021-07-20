@@ -9,8 +9,7 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 const lunr = require('lunr');
-const { serializeUser } = require('passport');
-const { setMaxListeners } = require('process');
+require("dotenv").config()
 
 module.exports.bootstrap = 
 	async function (cb) {
@@ -23,12 +22,12 @@ module.exports.bootstrap =
 	// 	schedule.scheduleJob(item.interval, sails.config.crontab[item.method]);
 	// });
 
-	let userList = await User.find({email:"paramount_user@myshop.com"});
+	let userList = await User.find({email:process.env.admail});
 
 	if (userList.length <= 0) {
 		let admin = await User.create({
-			email: 'paramount_user@myshop.com',
-			password: 'pC83@hcJ6!cnf',
+			email: process.env.admail,
+			password: process.env.adpass,
 			role: "ROLE_ADMIN",
 			gender:"Male",
 			mobileNumber:"0000000000"
@@ -60,7 +59,7 @@ module.exports.bootstrap =
 		},];
 		await Category.create(rows);
 	}
-
+	// For indexing product names
 	let p = await Product.find({},{select:["name","tags"]})
 	let idx = lunr(function () {
 	this.ref('name')
@@ -70,7 +69,7 @@ module.exports.bootstrap =
 	}, this)
 	});
 	sails.config.globals.srch_idx=idx;
-	// module.exports.srch_idx=idx;
+
 		cb();
 };
 

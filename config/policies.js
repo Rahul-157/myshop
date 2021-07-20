@@ -23,7 +23,7 @@ module.exports.policies = {
 	//for a controller named AuthController
 	AuthController: {
 		// for route name setAgreementAccepted set the policies for authentaication and auth
-		logout: ['isAuthenticated']
+		
 	},
 	AdminController:{
 		home:['isAdmin'],
@@ -47,6 +47,6 @@ module.exports.policies = {
 		logout:['isAdmin']
 	},
 	HomeController:{
-		// temp:['isAuthenticated']
+		
 	}
 };

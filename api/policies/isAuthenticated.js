@@ -1,5 +1,5 @@
 var passport = require('passport');
-
+const logger = sails.log
 module.exports = function (req, res, next) {
 	// if(req.user){
 	// 	return next();
@@ -12,24 +12,7 @@ module.exports = function (req, res, next) {
 		if (!user) {
 			return res.forbidden("Please Login.")
 		}
-		if (user) {
-			try {
-				let currentUser = await User.findOne({
-					id: user.id
-				});
-				if (!currentUser) {
-					return res.json({
-						status: 'ERROR',
-						message: 'User not found.',
-						data: {},
-					});
-				}
-				console.log("AUTHENTICATED USER");
-				next();
-			} catch (error) {
-				console.log(error)
-			}
-			
-		}
+		// 
+		next();
 	})(req, res);
 }; 
